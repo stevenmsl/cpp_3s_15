@@ -50,13 +50,13 @@ vector<vector<int>> Solution::threeSum(vector<int> &nums)
   auto result = vector<vector<int>>();
   for (auto i = 0; i < nums.size(); i++)
   {
-    /* pick the first occurrence only */
+    /* pick only the first occurrence of the repeats  */
     if (i > 0 && nums[i] == nums[i - 1])
       continue;
     for (auto j = i + 1; j < nums.size(); j++)
     {
       /* skip if it's the same value at the same level*/
-      if (j - 1 != i && nums[j] == nums[j - 1])
+      if (j > i + 1 && nums[j] == nums[j - 1])
         continue;
       auto t = 0 - nums[i] - nums[j];
       /* we sorted the array. So anything after nums[j] will be greater
@@ -66,7 +66,9 @@ vector<vector<int>> Solution::threeSum(vector<int> &nums)
         continue;
       if (!count.count(t))
         continue;
-      /* let's check if there is enough count for everyone */
+      /* let's check if there is enough count for everyone
+
+      */
       if (count[t] >= ((nums[i] == t) + (nums[j] == t) + 1))
         result.push_back({nums[i], nums[j], t});
     }
